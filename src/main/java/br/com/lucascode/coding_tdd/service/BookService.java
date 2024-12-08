@@ -48,4 +48,8 @@ public class BookService {
             return ResponseEntity.noContent().build();
         }).orElse(ResponseEntity.notFound().build());
     }
+
+    public List<Book> listBooksThatStartsWith(String partialName) {
+        return bookRepository.findByNameStartingWith(partialName);
+    }
 }

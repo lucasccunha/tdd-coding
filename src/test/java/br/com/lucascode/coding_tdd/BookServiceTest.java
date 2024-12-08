@@ -88,7 +88,7 @@ public class BookServiceTest {
 
         Exception exception = assertThrows(BookNotFoundException.class,
                 () -> bookService.getBookById(200L));
-        assertEquals("Book with id " + 200L + "not found", exception.getMessage());
+        assertEquals("Book with id " + 200L + " not found", exception.getMessage());
     }
 
     @Test
@@ -98,6 +98,27 @@ public class BookServiceTest {
 
         ResponseEntity<Object> expected = bookService.deleteBookById(createBook().getId());
         assertThat(expected.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+
+    }
+    @Test
+    @DisplayName("Success - should find a book by partial name")
+    void ShouldFindBookByPartialNameWithSuccess(){
+        Book book = new Book();
+        book.setId(1L);
+        book.setName("essencialismo");
+        book.setStatus(Status.IN_PROGRESS);
+        book.setCategory(Category.SOFT_SKILLS);
+
+
+        when(bookRepository.findByNameStartingWith("ess")).thenReturn((List.of(book)));
+        List<Book> expected = bookService.listBooksThatStartsWith("ess");
+        assertThat(expected.get(0).getId()).isEqualTo(book.getId());
+        assertThat(expected.get(0).getName()).isEqualTo(book.getName());
+        assertThat(expected.get(0).getCategory()).isEqualTo(book.getCategory());
+        assertThat(expected.get(0).getStatus()).isEqualTo(book.getStatus());
+        assertThat(expected.get(0).getName()).isNotEqualTo(createBook().getName());
+
 
 
     }

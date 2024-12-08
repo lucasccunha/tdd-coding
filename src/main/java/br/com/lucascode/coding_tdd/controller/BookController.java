@@ -45,4 +45,12 @@ public class BookController {
         return bookService.deleteBookById(id);
 
     }
+
+    @GetMapping("/name")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Book> listBooksThatStartsWithPartialName
+            (@RequestParam String name) {
+        return bookService.listBooksThatStartsWith(name);
+
+    }
 }
