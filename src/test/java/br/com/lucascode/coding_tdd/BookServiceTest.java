@@ -10,11 +10,13 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
 
 import static br.com.lucascode.coding_tdd.BookFactory.createBook;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +35,15 @@ public class BookServiceTest {
         Book created = bookService.createBook(createBook());
         assertThat(created.getName()).isSameAs(createBook().getName());
         assertNotNull(created.getId());
-        assertEquals(created.getId(),1);
+        assertEquals(created.getId(), 1);
+    }
+
+    @Test
+    @DisplayName("Success - should return the list of books with success")
+    void shouldReturnListOfBooksWithSuccess() {
+        when(bookRepository.findAll()).thenReturn(List.of(createBook()));
+        List<Book> books = bookService.listAllBooks();
+
     }
 }
 

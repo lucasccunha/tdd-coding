@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CodingTddApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CodingTddApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CodingTddApplication.class, args);
+    }
 
 }
