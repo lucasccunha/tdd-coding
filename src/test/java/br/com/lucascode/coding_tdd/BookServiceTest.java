@@ -13,6 +13,8 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -89,5 +91,15 @@ public class BookServiceTest {
         assertEquals("Book with id " + 200L + "not found", exception.getMessage());
     }
 
+    @Test
+    @DisplayName("Success - should delete book with success ")
+    void shouldDeleteBookWithSuccess() {
+        when(bookRepository.findById(createBook().getId())).thenReturn(Optional.empty());
+
+        ResponseEntity<Object> expected = bookService.deleteBookById(createBook().getId());
+        assertThat(expected.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+
+    }
 }
 

@@ -39,4 +39,10 @@ public class BookController {
     public ResponseEntity<Book> updateBookById(@PathVariable(value = "id")Long id, @RequestBody Book book) throws BookNotFoundException {
         return bookService.updateBookById(id,book);
     }
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> deleteBookById(@PathVariable(value = "id") Long id) {
+        return bookService.deleteBookById(id);
+
+    }
 }

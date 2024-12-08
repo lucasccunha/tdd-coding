@@ -41,4 +41,11 @@ public class BookService {
 
                 }).orElse(ResponseEntity.notFound().build());
     }
+
+    public ResponseEntity<Object> deleteBookById(Long id) {
+        return bookRepository.findById(id).map(bookToDelete -> {
+            bookRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }).orElse(ResponseEntity.notFound().build());
+    }
 }
